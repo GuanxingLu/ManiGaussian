@@ -1,0 +1,53 @@
+method:
+    name: "GNFACTOR_BC"
+
+rlbench:
+    task_name: "multi"
+    # change the task as you want. in our paper, we select these 10 tasks.
+    tasks: [close_jar,open_drawer,sweep_to_dustpan_of_size,meat_off_grill,turn_tap,slide_block_to_color_target,put_item_in_drawer,reach_and_drag,push_buttons,stack_blocks]
+    demo_path: /my/demo/path
+    episode_length: 25
+    cameras: [front]
+    camera_resolution: [128, 128]
+    scene_bounds: [-0.3, -0.5, 0.6, 0.7, 0.5, 1.6]
+    include_lang_goal_in_obs: True
+    time_in_state: True # default
+    headless: True  # default
+
+framework:
+    tensorboard_logging: True
+    csv_logging: True
+    gpu: 0
+    logdir: 'logs/'
+    start_seed: 0
+    record_every_n: 5
+    
+    # this parameter is used for parallel evaluation.
+    # you could increase it to speed up evaluation, or decrease it to save GPU memory.
+    eval_envs: 5
+
+    # start index
+    eval_from_eps_number: 0
+
+    eval_episodes: 25
+    # eval_type: 'missing' # default: 'missing'
+    # eval_type: 'best' # please first run 'missing'
+    eval_type: 'last'   # more convinience
+    # eval_type: 90000 # evaluate a specific checkpoint
+    eval_save_metrics: True
+    novel_command: 'None'
+
+cinematic_recorder:
+    # enable cinematic recording during evaluation, so you could see the videos of the trajectory.
+    enabled: False 
+    # enabled: True   # one video clip is 1MB
+
+    camera_resolution: [1280, 720]
+    fps: 30
+    rotate_speed: 0.01
+    # rotate_speed: 0 # NOTE: this is not front view
+    save_path: 'eval/videos/'   # non-sense
+
+hydra:
+    run:
+        dir: ${framework.logdir}/${rlbench.task_name}

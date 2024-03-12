@@ -1,0 +1,149 @@
+
+name: 'GNFACTOR_BC'
+
+use_fabric: False
+use_depth: False  # for create_obs_config
+
+use_neural_rendering: True
+num_view_for_nerf: 20
+
+# choices: T5 (768), CLIP (512)
+# we use CLIP as language model. Users could explore more about other language models such as T5.
+language_model: 'CLIP'
+language_model_dim: 512
+
+# Voxelization
+image_crop_size: 64
+bounds_offset: [0.15]
+voxel_sizes: [100]
+include_prev_layer: False
+
+# Perceiver
+num_latents: 2048
+latent_dim: 512
+transformer_depth: 6
+transformer_iterations: 1
+cross_heads: 1
+cross_dim_head: 64
+latent_heads: 8
+latent_dim_head: 64
+pos_encoding_with_lang: True
+conv_downsample: True
+lang_fusion_type: 'seq' # or 'concat'
+voxel_patch_size: 5
+voxel_patch_stride: 5
+final_dim: 128
+
+# Training
+input_dropout: 0.1
+attn_dropout: 0.1
+decoder_dropout: 0.0
+
+lr: 0.0005
+lr_scheduler: False
+num_warmup_steps: 3000
+optimizer: 'lamb' # or 'adam'
+
+lambda_weight_l2: 0.000001
+trans_loss_weight: 1.0
+rot_loss_weight: 1.0
+grip_loss_weight: 1.0
+collision_loss_weight: 1.0
+rotation_resolution: 5
+
+# Network
+activation: lrelu
+norm: None
+
+# Augmentation
+crop_augmentation: True
+transform_augmentation:
+  apply_se3: True
+  aug_xyz: [0.125, 0.125, 0.125]
+  aug_rpy: [0.0, 0.0, 45.0]
+  aug_rot_resolution: ${method.rotation_resolution}
+
+demo_augmentation: True
+demo_augmentation_every_n: 10
+
+# Ablations
+no_skip_connection: False
+no_perceiver: False
+no_language: False
+keypoint_method: 'heuristic'
+
+use_wandb: True
+
+lambda_bc: 1.0
+
+neural_renderer:
+  # we use Stable Diffusion as the feature extractor for NeRF.
+  # we encourage users to explore more about other feature extractors, such as DINOv2.
+
+  # foundation_model_name: 'diffusion'
+  foundation_model_name: null
+  d_embed: 512
+
+  render_freq: 2000
+  
+  d_latent: 128
+
+  # we do not use multi-scale voxel in final version.
+  use_multi_scale_voxel: False
+  d_multi_scale_latent: 266
+
+  use_depth_supervision: False
+
+  # weight for joint training of BC and NeRF
+  lambda_nerf: 0.01
+
+  # loss weight. 
+  # this has been tuned.
+  # 0.01 for diffusion
+  lambda_embed: 0.01 # feature reconstruction loss
+  lambda_rgb: 1.0 # RGB reconstruction loss
+  
+
+  ray_chunk_size: 512
+  d_lang: 128
+  
+  voxel_shape: 100
+  share_mlp: True
+  image_width: 128
+  image_height: 128
+  z_near: 0.1
+  z_far: 4.0
+  coordinate_bounds: [-0.3, -0.5, 0.6, 0.7, 0.5, 1.6]
+
+  regress_coord: False
+  regress_attention: False
+  ret_last_feat: False
+  use_code: True
+  use_code_viewdirs: False
+  use_xyz: True
+
+  # sampling
+  n_coarse: 64
+  n_fine: 32
+  n_fine_depth: 16
+  white_bkgd: False
+  lindisp: False
+  normalize_z: False
+  canon_xyz: True
+  use_viewdirs: True
+  eval_batch_size: 4096
+  noise_std: 0.0
+  depth_std: 0.001
+
+  mlp:
+    n_blocks: 5
+    d_hidden: 512
+    combine_layer: 3
+    combine_type: average
+    beta: 0.0
+    use_spade: False
+  code:
+    num_freqs: 6
+    freq_factor: 1.5
+    include_input: True
+  

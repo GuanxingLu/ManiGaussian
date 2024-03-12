@@ -1,0 +1,78 @@
+ddp:
+    master_addr: "localhost"
+    master_port: "29501"
+    num_devices: 1
+    device_id: 0
+
+rlbench:
+    task_name: "multi"
+    # change the task as you want. in our paper, we select these 10 tasks.
+    tasks: [close_jar,open_drawer,sweep_to_dustpan_of_size,meat_off_grill,turn_tap,slide_block_to_color_target,put_item_in_drawer,reach_and_drag,push_buttons,stack_blocks]
+    # you could try more/fewer demos.
+    demos: 20
+    # you could try more/fewer views.
+    num_view_for_nerf: 21
+    demo_path: /my/demo/path    # will be removed by "${cur_dir}/data/train_data" in cli
+    episode_length: 15
+    # full cameras: [front,left_shoulder,right_shoulder,wrist]
+    # we find that one camera is very enough to achieve decent performance.
+    cameras: [front]
+    camera_resolution: [128, 128]
+    scene_bounds: [-0.3, -0.5, 0.6, 0.7, 0.5, 1.6]
+    include_lang_goal_in_obs: True
+    headless: True
+
+replay:
+    batch_size: 1
+    timesteps: 1
+    prioritisation: False
+    task_uniform: True # uniform sampling of tasks for multi-task buffers
+    use_disk: True
+    path: '/tmp/arm/replay' # only used when use_disk is True.
+    max_parallel_processes: 8
+
+evaluation: # for online evaluation
+    eval_freq: 10000
+    eval_episodes: 25
+    time_in_state: True
+    record_every_n: 10000
+    episode_length: 15  # default
+    # episode_length: 25
+    gpu: 0
+
+
+framework:
+    use_online_evaluation: False
+    log_freq: 100
+    save_freq: 10000
+    train_envs: 1
+    replay_ratio: ${replay.batch_size}
+    transitions_before_train: 200
+    tensorboard_logging: False
+    csv_logging: True
+    training_iterations: 100010
+    gpu: 0
+    env_gpu: 0
+    logdir: 'logs/'
+    logging_level: 20 # https://docs.python.org/3/library/logging.html#levels
+    seeds: 1
+    start_seed: 0
+    load_existing_weights: False
+    num_weights_to_keep: 60 # older checkpoints will be deleted chronologically
+    num_workers: 0
+    record_every_n: 5
+    # wandb setting
+    use_wandb: True
+    wandb_project: "gnfactor"
+    wandb_group: ${rlbench.task_name}_${method.name}
+    seed: 0
+    wandb_name: ${framework.seed}
+    tqdm_mininterval: 10    # tqdm print interval (s)
+
+
+defaults:
+    - method: GNFACTOR_BC
+
+hydra:
+    run:
+        dir: ${framework.logdir}/${rlbench.task_name}
