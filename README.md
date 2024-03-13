@@ -1,7 +1,7 @@
 # ManiGaussian
 
 🦾 [**ManiGaussian: Dynamic Gaussian Splatting for Multi-task Robotic Manipulation**](#)  
-[Guanxing Lu](https://guanxinglu.github.io/), Shiyi Zhang, [Ziwei Wang](https://ziweiwangthu.github.io/), [Changliu Liu](https://www.cs.cmu.edu/~cliu6/), [Jiwen Lu](http://ivg.au.tsinghua.edu.cn/Jiwen_Lu/), [Yansong Tang](https://andytang15.github.io/)
+[Guanxing Lu](https://guanxinglu.github.io/), [Shiyi Zhang](https://shiyi-zh0408.github.io/), [Ziwei Wang](https://ziweiwangthu.github.io/), [Changliu Liu](https://www.cs.cmu.edu/~cliu6/), [Jiwen Lu](http://ivg.au.tsinghua.edu.cn/Jiwen_Lu/), [Yansong Tang](https://andytang15.github.io/)
 
 [[Project Page](https://guanxinglu.github.io/ManiGaussian/)]
 
