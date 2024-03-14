@@ -1,9 +1,9 @@
 # ManiGaussian
 
-🦾 [**ManiGaussian: Dynamic Gaussian Splatting for Multi-task Robotic Manipulation**](#)  
+🦾 [**ManiGaussian: Dynamic Gaussian Splatting for Multi-task Robotic Manipulation**](https://arxiv.org/abs/2403.08321)  
 [Guanxing Lu](https://guanxinglu.github.io/), [Shiyi Zhang](https://shiyi-zh0408.github.io/), [Ziwei Wang](https://ziweiwangthu.github.io/), [Changliu Liu](https://www.cs.cmu.edu/~cliu6/), [Jiwen Lu](http://ivg.au.tsinghua.edu.cn/Jiwen_Lu/), [Yansong Tang](https://andytang15.github.io/)
 
-[[Project Page](https://guanxinglu.github.io/ManiGaussian/)]
+**[[Project Page](https://guanxinglu.github.io/ManiGaussian/)] | [[Paper](https://arxiv.org/pdf/2403.08321.pdf)]**
 
 ManiGaussian is an end-to-end behavior cloning agent that learns to perform various language-conditioned robotic manipulation tasks, which consists of a dynamic Gaussian Splatting framework and a Gaussian world model to model scene-level spatiotemporal dynamics. The dynamic Gaussian Splatting framework models the propagation of semantic features in the Gaussian embedding space for manipulation, and the Gaussian world model parameterizes distributions to provide supervision by reconstructing the future scene.
 
