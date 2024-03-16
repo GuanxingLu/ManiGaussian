@@ -84,7 +84,7 @@ Our code is built upon [GNFactor](https://github.com/YanjieZe/GNFactor), [LangSp
 If you find this repository helpful, please consider citing:
 
 ```
-@misc{lu2024manigaussian,
+@article{lu2024manigaussian,
       title={ManiGaussian: Dynamic Gaussian Splatting for Multi-task Robotic Manipulation}, 
       author={Lu, Guanxing and Zhang, Shiyi and Wang, Ziwei and Liu, Changliu and Lu, Jiwen and Tang, Yansong},
       journal={arXiv preprint arXiv:2403.08321},
