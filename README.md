@@ -79,3 +79,15 @@ This repository is released under the MIT license.
 # 🙏 Acknowledgement
 
 Our code is built upon [GNFactor](https://github.com/YanjieZe/GNFactor), [LangSplat](https://github.com/minghanqin/LangSplat), [GPS-Gaussian](https://github.com/aipixel/GPS-Gaussian), [splatter-image](https://github.com/szymanowiczs/splatter-image), [PerAct](https://github.com/peract/peract), [RLBench](https://github.com/stepjam/RLBench), [pixelNeRF](https://github.com/sxyu/pixel-nerf), [ODISE](https://github.com/NVlabs/ODISE), and [CLIP](https://github.com/openai/CLIP). We thank all these authors for their nicely open sourced code and their great contributions to the community.
+
+# 🥰 Citation
+If you find this repository helpful, please consider citing:
+
+```
+@misc{lu2024manigaussian,
+      title={ManiGaussian: Dynamic Gaussian Splatting for Multi-task Robotic Manipulation}, 
+      author={Lu, Guanxing and Zhang, Shiyi and Wang, Ziwei and Liu, Changliu and Lu, Jiwen and Tang, Yansong},
+      journal={arXiv preprint arXiv:2403.08321},
+      year={2024}
+}
+```
