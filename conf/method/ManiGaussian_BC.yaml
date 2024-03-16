@@ -40,7 +40,7 @@ attn_dropout: 0.1
 decoder_dropout: 0.0
 
 lr: 0.0005  # GNFactor
-lr_scheduler: True
+lr_scheduler: False
 num_warmup_steps: 3000
 optimizer: 'lamb' # or 'adam'
 lambda_weight_l2: 0.000001  # weight_decay
