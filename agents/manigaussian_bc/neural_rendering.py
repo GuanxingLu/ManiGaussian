@@ -57,7 +57,7 @@ class NeuralRenderer(nn.Module):
         if self.model_name == "diffusion":
             from odise.modeling.meta_arch.ldm import LdmFeatureExtractor
             import torchvision.transforms as T
-            self.diffusion_extractor = LdmFeatureExtractor(
+            self.feature_extractor = LdmFeatureExtractor(
                             encoder_block_indices=(5, 7),
                             unet_block_indices=(2, 5, 8, 11),
                             decoder_block_indices=(2, 5),
@@ -65,9 +65,17 @@ class NeuralRenderer(nn.Module):
                             captioner=None,
                         )
             self.diffusion_preprocess = T.Resize(512, antialias=True)
-            cprint("diffusion feature dims: "+str(self.diffusion_extractor.feature_dims), "yellow")
-        elif self.model_name == "debug":
-            pass
+            cprint("diffusion feature dims: "+str(self.feature_extractor.feature_dims), "yellow")
+        elif self.model_name == "dinov2":
+            from agents.manigaussian_bc.dino_extractor import VitExtractor
+            import torchvision.transforms as T
+            self.feature_extractor = VitExtractor(
+                model_name='dinov2_vitl14',
+            )
+            self.dino_preprocess = T.Compose([
+                T.Resize(224, antialias=True),  # must be a multiple of 14
+            ])
+            cprint("dinov2 feature dims: "+str(self.feature_extractor.feature_dims), "yellow")
         else:
             cprint(f"foundation model {self.model_name} is not implemented", "yellow")
 
@@ -123,7 +131,7 @@ class NeuralRenderer(nn.Module):
             else:
                 caption = "a robot arm " + lang_goal.item()
             batched_input = {'img': self.diffusion_preprocess(gt_rgb.permute(0, 3, 1, 2)), 'caption': caption}
-            feature_list, lang_embed = self.diffusion_extractor(batched_input) # list of visual features, and 77x768 language embedding
+            feature_list, lang_embed = self.feature_extractor(batched_input) # list of visual features, and 77x768 language embedding
             used_feature_idx = -1  
             gt_embed = feature_list[used_feature_idx]   # [bs,512,128,128]
 
@@ -139,6 +147,21 @@ class NeuralRenderer(nn.Module):
             gt_embed = torch.stack(gt_embed_list, dim=0).permute(0, 2, 1).reshape(bs, self.d_embed, 128, 128)
             return gt_embed
         
+        elif self.model_name == "dinov2":
+            batched_input = self.dino_preprocess(gt_rgb.permute(0, 3, 1, 2))
+            feature = self.feature_extractor(batched_input)
+            gt_embed = F.interpolate(feature, size=(128, 128), mode='bilinear', align_corners=False)    # [b, 1024, 128, 128]
+            # NOTE: dimensionality reduction with PCA, which is used to satisfy the output dimension of the Gaussian Renderer
+            bs = gt_rgb.shape[0]
+            A = gt_embed.reshape(bs, 1024, -1).permute(0, 2, 1)  # [bs, 128*128, 1024]
+            gt_embed_list = []
+            for i in range(bs):
+                U, S, V = torch.pca_lowrank(A[i], q=np.maximum(6, self.d_embed))
+                reconstructed_embed = torch.matmul(A[i], V[:, :self.d_embed])
+                gt_embed_list.append(reconstructed_embed)
+
+            gt_embed = torch.stack(gt_embed_list, dim=0).permute(0, 2, 1).reshape(bs, self.d_embed, 128, 128)
+            return gt_embed
         else:
             return None
 

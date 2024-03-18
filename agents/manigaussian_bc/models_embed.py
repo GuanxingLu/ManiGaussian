@@ -93,9 +93,9 @@ class GeneralizableGSEmbedNet(nn.Module):
         self.warm_up = cfg.next_mlp.warm_up
         self.use_action = cfg.next_mlp.use_action
         cprint(f"[GeneralizableGSEmbedNet] Using dynamic field: {self.use_dynamic_field}", "red")
-        cprint(f"[GeneralizableGSEmbedNet] Using action input: {self.use_action}", "red")
         if self.use_dynamic_field:
             self.use_semantic_feature = (cfg.foundation_model_name == 'diffusion')
+            cprint(f"[GeneralizableGSEmbedNet] Using action input: {self.use_action}", "red")
             cprint(f"[GeneralizableGSEmbedNet] Using semantic feature: {self.use_semantic_feature}", "red")
             next_d_in = self.d_out + self.d_in
             next_d_in = next_d_in + 8 if self.use_action else next_d_in  # action: 8 dim

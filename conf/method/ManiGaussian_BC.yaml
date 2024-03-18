@@ -88,7 +88,7 @@ neural_renderer:
 
   use_dynamic_field: False  # please set use_neural_rendering true first
 
-  # weight for joint training of BC and NeRF
+  # weight for all auxiliary losses
   lambda_nerf: 0.01
 
   # ManiGaussian loss weight. 
@@ -110,9 +110,7 @@ neural_renderer:
     scale: 1.0
     mask_gt_rgb: False
 
-  ## nerf
-  # foundation_model_name: 'diffusion'
-  foundation_model_name: null
+  foundation_model_name: null # or 'diffusion' or 'dinov2'
   d_embed: 3
   loss_embed_fn: cosine
   
