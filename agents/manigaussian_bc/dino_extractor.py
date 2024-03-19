@@ -16,11 +16,17 @@ class VitExtractor(nn.Module):
         self.last_block.register_forward_hook(self._get_block_hook())
         self.patch_size = 14
         self.feature_dims = 1024
+        self._freeze()
 
     def _get_block_hook(self):
         def _get_block_output(model, input, output):
             self.feature_output = output
         return _get_block_output
+    
+    def _freeze(self):
+        super().train(mode=False)
+        for p in self.parameters():
+            p.requires_grad = False
 
     def forward(self, input_img):
         B, C, H, W = input_img.shape

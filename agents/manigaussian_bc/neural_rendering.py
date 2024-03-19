@@ -114,6 +114,7 @@ class NeuralRenderer(nn.Module):
             return grad
         return hook
 
+    @torch.no_grad()
     def extract_foundation_model_feature(self, gt_rgb, lang_goal):
         """
         we use the last layer of the diffusion feature extractor
@@ -148,7 +149,7 @@ class NeuralRenderer(nn.Module):
             return gt_embed
         
         elif self.model_name == "dinov2":
-            batched_input = self.dino_preprocess(gt_rgb.permute(0, 3, 1, 2))
+            batched_input = self.dino_preprocess(gt_rgb.permute(0, 3, 1, 2))    # resize
             feature = self.feature_extractor(batched_input)
             gt_embed = F.interpolate(feature, size=(128, 128), mode='bilinear', align_corners=False)    # [b, 1024, 128, 128]
             # NOTE: dimensionality reduction with PCA, which is used to satisfy the output dimension of the Gaussian Renderer
