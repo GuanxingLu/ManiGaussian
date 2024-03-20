@@ -73,7 +73,7 @@ class NeuralRenderer(nn.Module):
                 model_name='dinov2_vitl14',
             )
             self.dino_preprocess = T.Compose([
-                T.Resize(224, antialias=True),  # must be a multiple of 14
+                T.Resize(224 * 8, antialias=True),  # must be a multiple of 14
             ])
             cprint("dinov2 feature dims: "+str(self.feature_extractor.feature_dims), "yellow")
         else:
@@ -114,7 +114,6 @@ class NeuralRenderer(nn.Module):
             return grad
         return hook
 
-    @torch.no_grad()
     def extract_foundation_model_feature(self, gt_rgb, lang_goal):
         """
         we use the last layer of the diffusion feature extractor
@@ -152,6 +151,7 @@ class NeuralRenderer(nn.Module):
             batched_input = self.dino_preprocess(gt_rgb.permute(0, 3, 1, 2))    # resize
             feature = self.feature_extractor(batched_input)
             gt_embed = F.interpolate(feature, size=(128, 128), mode='bilinear', align_corners=False)    # [b, 1024, 128, 128]
+
             # NOTE: dimensionality reduction with PCA, which is used to satisfy the output dimension of the Gaussian Renderer
             bs = gt_rgb.shape[0]
             A = gt_embed.reshape(bs, 1024, -1).permute(0, 2, 1)  # [bs, 128*128, 1024]
@@ -160,7 +160,6 @@ class NeuralRenderer(nn.Module):
                 U, S, V = torch.pca_lowrank(A[i], q=np.maximum(6, self.d_embed))
                 reconstructed_embed = torch.matmul(A[i], V[:, :self.d_embed])
                 gt_embed_list.append(reconstructed_embed)
-
             gt_embed = torch.stack(gt_embed_list, dim=0).permute(0, 2, 1).reshape(bs, self.d_embed, 128, 128)
             return gt_embed
         else:
