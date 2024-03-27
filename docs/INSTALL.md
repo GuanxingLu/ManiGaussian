@@ -1,6 +1,6 @@
 # Installation
 
-The following guidance works well for a machine with 4090 GPU | cuda 11.7 | ubuntu 22.04, a machine with 3090 GPU | cuda 11.6 | ubuntu 20.04, a machine with 3090 GPU | cuda 11.7 | ubuntu 18.04, a machine with 4060 GPU | cuda 11.7 | wsl2, and more machines.
+The following guidance works well for a machine with 4090 GPU | cuda 11.7 | ubuntu 22.04, a machine with 3090 GPU | cuda 11.6 | ubuntu 20.04, a machine with 3090 GPU | cuda 11.7 | ubuntu 18.04, ~~a machine with 4060 GPU | cuda 11.7 | wsl2~~, and more machines.
 
 For possible errors, please see [ERROR_CATCH.md](ERROR_CATCH.md). Our repo is mainly built upon [GNFactor](https://github.com/YanjieZe/GNFactor), so you can also refer to [GNFactor's installation instruction](https://github.com/YanjieZe/GNFactor/blob/main/docs/INSTALL.md). If you encounter any other problem, feel free to open an issue.
 
