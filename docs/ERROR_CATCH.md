@@ -41,4 +41,9 @@ pip install wandb==0.14.0
 pip install torchmetrics==0.6.0
 ```
 
+- [glm/glm.hpp no such file or directory](https://github.com/GuanxingLu/ManiGaussian/issues/3)
+```
+sudo apt-get install libglm-dev
+```
+
 You can also refer to [GNFactor's error catching](https://github.com/YanjieZe/GNFactor/blob/main/docs/ERROR_CATCH.md) for more error types.
