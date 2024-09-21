@@ -10,7 +10,7 @@ ManiGaussian is an end-to-end behavior cloning agent that learns to perform vari
 ![](docs/pipeline.png)
 
 # 📝 TODO
-- [ ] Release pretrained checkpoints.
+- [X] Release pretrained checkpoints.
 - [ ] Provide more results (csv files).
 - [ ] Provide a Dockerfile for installation.
 
@@ -72,6 +72,14 @@ After evaluation, the following command is used to compute the average success r
 ```bash
 python scripts/compute_results.py --file_paths ManiGaussian_results/w_geo/0.csv ManiGaussian_results/w_geo/1.csv ManiGaussian_results/w_geo/2.csv --method last
 ```
+
+## Checkpoint
+
+[Checkpoint](https://cloud.tsinghua.edu.cn/d/b09de0a8d23f41b9b4ee/).
+After downloading it to your `logs/` folder, you can run the following command to check the result:
+```bash
+python scripts/compute_results.py --file_paths logs/gs_rgb_emb_001_dyna_01_0305/seed0/eval_data.csv --method last
+``` 
 
 # 🏷️ License
 This repository is released under the MIT license.
