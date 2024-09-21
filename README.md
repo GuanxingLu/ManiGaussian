@@ -11,7 +11,6 @@ ManiGaussian is an end-to-end behavior cloning agent that learns to perform vari
 
 # 📝 TODO
 - [X] Release pretrained checkpoints.
-- [ ] Provide more results (csv files).
 - [ ] Provide a Dockerfile for installation.
 
 # 💻 Installation
