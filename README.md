@@ -72,7 +72,7 @@ After evaluation, the following command is used to compute the average success r
 python scripts/compute_results.py --file_paths ManiGaussian_results/w_geo/0.csv ManiGaussian_results/w_geo/1.csv ManiGaussian_results/w_geo/2.csv --method last
 ```
 
-## Checkpoint
+# 🌴 Checkpoint
 
 [Checkpoint](https://cloud.tsinghua.edu.cn/d/b09de0a8d23f41b9b4ee/).
 After downloading it to your `logs/` folder, you can run the following command to check the result:
