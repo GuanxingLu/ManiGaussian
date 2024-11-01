@@ -4,8 +4,14 @@ The following guidance works well for a machine with 4090 GPU | cuda 11.7 | ubun
 
 For possible errors, please see [ERROR_CATCH.md](ERROR_CATCH.md). Our repo is mainly built upon [GNFactor](https://github.com/YanjieZe/GNFactor), so you can also refer to [GNFactor's installation instruction](https://github.com/YanjieZe/GNFactor/blob/main/docs/INSTALL.md). If you encounter any other problem, feel free to open an issue.
 
-# 0 create python/pytorch env
+# 0 clone the repo and create env
 ```
+# for SSH
+git clone git@github.com:GuanxingLu/oral.git
+
+# [Optional] We have wrapped (modified) third party packages into this repo, so it might be oversized. To address this, run:
+# git config --global http.postBuffer 104857600 
+
 conda remove -n manigaussian --all
 conda create -n manigaussian python=3.9
 conda activate manigaussian

@@ -46,4 +46,21 @@ pip install torchmetrics==0.6.0
 sudo apt-get install libglm-dev
 ```
 
+- The call failed on the V-REP side. 
+```
+pip uninstall rlbench
+
+# then follow the instruction to reinstall the correct RLBench version please
+cd third_party/RLBench
+pip install -r requirements.txt
+python setup.py develop
+```
+
+- libEGL warning: failed to open /dev/dri/renderD128: Permission denied
+```
+# Ref: https://github.com/google-deepmind/dm_control/issues/214
+sudo apt install libnvidia-gl-470-server
+```
+Maybe a simple `chown' or `chmod' also work.
+
 You can also refer to [GNFactor's error catching](https://github.com/YanjieZe/GNFactor/blob/main/docs/ERROR_CATCH.md) for more error types.

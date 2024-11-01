@@ -170,7 +170,10 @@ class OfflineTrainRunner():
                 start_iter = 0
             else:
                 resume_iteration = existing_weights[-1]
-                self._agent.load_weights(os.path.join(self._weightsdir, str(resume_iteration)))
+                if self._fabric is not None:
+                    self._agent.load_weights(os.path.join(self._weightsdir, str(resume_iteration)), fabric=self._fabric)
+                else:
+                    self._agent.load_weights(os.path.join(self._weightsdir, str(resume_iteration)))
                 start_iter = resume_iteration + 1
                 if self._rank == 0:
                     logging.info(f"load weights from {os.path.join(self._weightsdir, str(resume_iteration))} ...")
@@ -214,12 +217,18 @@ class OfflineTrainRunner():
                 if log_iteration:
 
                     logging.info(f"Train Step {i:06d} | Loss: {loss:0.5f} | Step time: {step_time:0.4f} | CWD: {os.getcwd()}")
-                    
+                    # message = f"Train Step {i:06d} | Loss: {loss:0.5f} | Step time: {step_time:0.4f} | CWD: {os.getcwd()}"
+                    # tqdm.write(message)  # Use tqdm.write to log without interrupting the progress bar
 
+                    # SUMMARY =  True # TODO: add summaries here
+                    # if SUMMARY:
+                    #     agent_summaries = self._agent.update_summaries()
+                    #     self._writer.add_summaries(i, agent_summaries)
+                    
                 if i % self._save_freq == 0 and self._weightsdir is not None:
                     self._save_model(i)
 
         if self._rank == 0:
             logging.info('Stopping envs ...')
 
-            self._wrapped_buffer.replay_buffer.shutdown()
+            # self._wrapped_buffer.replay_buffer.shutdown() # HACK: remove this so that your replay files are safe.

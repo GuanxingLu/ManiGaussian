@@ -19,6 +19,7 @@ import torch.distributed as dist
 
 from termcolor import cprint
 import lightning as L
+from tqdm import tqdm
 
 
 def run_seed(
@@ -77,17 +78,28 @@ def run_seed(
             cams, cfg.method.voxel_sizes,
             cfg.rlbench.camera_resolution,
             cfg=cfg)
-
-        manigaussian_bc.launch_utils.fill_multi_task_replay(
-            cfg, obs_config, 0,
-            replay_buffer, tasks, cfg.rlbench.demos,
-            cfg.method.demo_augmentation, cfg.method.demo_augmentation_every_n,
-            cams, cfg.rlbench.scene_bounds,
-            cfg.method.voxel_sizes, cfg.method.bounds_offset,
-            cfg.method.rotation_resolution, cfg.method.crop_augmentation,
-            keypoint_method=cfg.method.keypoint_method,
-            fabric=fabric,
-        )
+        
+        if cfg.replay.use_disk and (os.path.exists(replay_path) and len(os.listdir(replay_path)) > 1):  # default: True
+            logging.info(f"Found replay files in {replay_path}. Loading...")
+            replay_files = [os.path.join(replay_path, f) for f in os.listdir(replay_path) if f.endswith('.replay')]
+            for replay_file in tqdm(replay_files, desc="Processing replay files"):  # NOTE: Experimental, please check your replay buffer carefully.
+                with open(replay_file, 'rb') as f:
+                    try:
+                        replay_data = pickle.load(f)
+                        replay_buffer._add(replay_data)
+                    except pickle.UnpicklingError as e:
+                        logging.error(f"Error unpickling file {replay_file}: {e}")
+        else:
+            manigaussian_bc.launch_utils.fill_multi_task_replay(
+                cfg, obs_config, 0,
+                replay_buffer, tasks, cfg.rlbench.demos,
+                cfg.method.demo_augmentation, cfg.method.demo_augmentation_every_n,
+                cams, cfg.rlbench.scene_bounds,
+                cfg.method.voxel_sizes, cfg.method.bounds_offset,
+                cfg.method.rotation_resolution, cfg.method.crop_augmentation,
+                keypoint_method=cfg.method.keypoint_method,
+                fabric=fabric,
+            )
 
         agent = manigaussian_bc.launch_utils.create_agent(cfg)
     

@@ -2,7 +2,9 @@
 wandb/
 *egg-info*
 *.tar.xz
-data/
+data
+!third_party/**/data
+test/
 *.eps
 *.pyc
 .vscode

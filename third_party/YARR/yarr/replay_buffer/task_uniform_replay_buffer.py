@@ -94,7 +94,7 @@ class TaskUniformReplayBuffer(UniformReplayBuffer):
         else:
             min_id = 0
             max_id = self.cursor() - self._update_horizon
-            if max_id <= min_id:
+            if max_id <= min_id:    # FIXME: the exception is not true
                 raise RuntimeError(
                     'Cannot sample a batch with fewer than stack size '
                     '({}) + update_horizon ({}) transitions.'.

@@ -57,7 +57,9 @@ To train our vanilla ManiGaussian, run:
 ```bash
 bash scripts/train_and_eval_w_geo_sem_dyna.sh ManiGaussian_BC 0,1 12345 ${exp_name}
 ```
-We train our ManiGaussian on two NVIDIA RTX 4090 GPUs for ~1 day.
+
+> - We train our ManiGaussian on two NVIDIA RTX 4090 GPUs for <2 days.
+> - If there is an unexpected crash, enter 'q' to exit the python debugger (pdb) smoothly.
 
 ## 🧪 Evaluation
 To evaluate the checkpoint, you can use:
