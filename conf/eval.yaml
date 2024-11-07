@@ -1,5 +1,5 @@
 method:
-    name: "GNFACTOR_BC"
+    name: "ManiGaussian_BC"
 
 rlbench:
     task_name: "multi"

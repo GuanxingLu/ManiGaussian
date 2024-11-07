@@ -63,7 +63,7 @@ framework:
     record_every_n: 5
     # wandb setting
     use_wandb: True
-    wandb_project: "gnfactor"
+    wandb_project: "manigaussian"
     wandb_group: ${rlbench.task_name}_${method.name}
     seed: 0
     wandb_name: ${framework.seed}
@@ -71,7 +71,7 @@ framework:
 
 
 defaults:
-    - method: GNFACTOR_BC
+    - method: ManiGaussian_BC
 
 hydra:
     run:
