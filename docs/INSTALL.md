@@ -6,8 +6,7 @@ For possible errors, please see [ERROR_CATCH.md](ERROR_CATCH.md). Our repo is ma
 
 # 0 clone the repo and create env
 ```
-# for SSH
-git clone git@github.com:GuanxingLu/oral.git
+git clone https://github.com/GuanxingLu/ManiGaussian.git
 
 # [Optional] We have wrapped (modified) third party packages into this repo, so it might be oversized. To address this, run:
 # git config --global http.postBuffer 104857600 
