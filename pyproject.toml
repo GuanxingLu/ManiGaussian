@@ -36,19 +36,19 @@ dependencies = [
 
 
 [tool.uv.extra-build-dependencies]
-# 给需要编译 C++/CUDA 扩展的包统统加上 ninja
-simple-knn = ["setuptools==68.2.2", "wheel", "ninja", { requirement = "torch", match-runtime = true }]
-diff-gaussian-rasterization = ["setuptools==68.2.2", "wheel", "ninja", { requirement = "torch", match-runtime = true }]
-pytorch3d = ["setuptools==68.2.2", "wheel", "ninja", { requirement = "torch", match-runtime = true }]
-detectron2 = ["setuptools==68.2.2", "wheel", "ninja", { requirement = "torch", match-runtime = true }]
-odise = ["setuptools==68.2.2", "wheel", "ninja", { requirement = "torch", match-runtime = true }]
+# 给需要编译 C++/CUDA 扩展的包加上 ninja
+simple-knn = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+diff-gaussian-rasterization = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+pytorch3d = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+detectron2 = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+odise = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
 
-mask2former = ["setuptools==68.2.2", "wheel", "ninja", { requirement = "torch", match-runtime = true }]
+mask2former = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
 
 visdom = ["setuptools==68.2.2", "wheel"]
 
 pyrep = ["setuptools==68.2.2", "wheel", "cffi"]
-yarr = ["setuptools==68.2.2", "wheel", { requirement = "torch", match-runtime = true }]
+yarr = ["setuptools==68.2.2", "wheel", "torch==2.0.0"]
 
 [tool.uv.sources]
 # PyTorch 核心源
