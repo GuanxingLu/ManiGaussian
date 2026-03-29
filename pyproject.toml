@@ -24,6 +24,7 @@ dependencies = [
     "hydra-core==1.1.0",
     "open-clip-torch",
     "pytorch3d",
+    "cffi",
     "clip",
     "detectron2",
     "pyrep",
@@ -31,7 +32,8 @@ dependencies = [
     "yarr",
     "odise",
     "diff-gaussian-rasterization",
-    "simple-knn"
+    "simple-knn",
+    "pyquaternion"
 ]
 
 
