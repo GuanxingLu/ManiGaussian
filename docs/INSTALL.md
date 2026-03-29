@@ -139,4 +139,40 @@ pip install lightning
 ```
 
 
+# try install with uv
 
+uv is a new environment manager
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv --version
+```
+
+after install with uv,you can set up CUDA_HOME (11.7) and COPPELIASIM_ROOT
+
+This project requires CUDA 11.7. If you have a different version (e.g., CUDA 12.3) installed system-wide, please install CUDA 11.7 locally to avoid conflicts.
+
+Install CUDA 11.7 (Local Installation)
+
+```bash
+cd ~
+#  2.5GB
+wget https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/cuda_11.7.1_515.65.01_linux.run
+
+sh cuda_11.7.1_515.65.01_linux.run --silent --toolkit --toolkitpath=$HOME/cuda-11.7
+```
+
+and run
+
+```bash
+export PATH=$HOME/cuda-11.7/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/cuda-11.7/lib64:$LD_LIBRARY_PATH
+
+export COPPELIASIM_ROOT=EDIT/ME/PATH/TO/COPPELIASIM/INSTALL/DIR
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$COPPELIASIM_ROOT
+export QT_QPA_PLATFORM_PLUGIN_PATH=$COPPELIASIM_ROOT
+```
+
+Remember to git clone g-truc/glm in `third_party/gaussian-splatting/submodules/diff-gaussian-rasterization/third_party/glm`
+
+before you run `uv sync`

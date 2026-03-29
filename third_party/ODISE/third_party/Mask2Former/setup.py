@@ -86,7 +86,7 @@ setup(
         # "detectron2 @ https://github.com/facebookresearch/detectron2/archive/v0.6.zip",
         "scipy>=1.7.3",
         "boto3>=1.21.25",
-        "hydra-core==1.1.1",
+        "hydra-core>=1.0.5",
         # there is BC breaking in omegaconf 2.2.1
         # see: https://github.com/omry/omegaconf/issues/939
         "omegaconf==2.1.1",

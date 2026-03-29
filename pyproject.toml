@@ -1,0 +1,95 @@
+[project]
+name = "manigaussian"
+version = "0.1.0"
+description = "[ECCV 2024] ManiGaussian"
+readme = "README.md"
+requires-python = "==3.9.*"
+dependencies = [
+    "torch==2.0.0",
+    "torchvision==0.15.0",
+    "torchaudio==2.0.0",
+    "lightning>=2.0.0,<=2.2.0",
+    "xformers==0.0.18",
+    "numpy==1.23.5",
+    "packaging==21.3",
+    "opencv-python-headless",
+    "dotmap",
+    "pyhocon",
+    "wandb==0.14.0",
+    "chardet",
+    "gpustat",
+    "ipdb",
+    "visdom",
+    "sentencepiece",
+    "hydra-core==1.1.0",
+    "open-clip-torch",
+    "pytorch3d",
+    "cffi",
+    "clip",
+    "detectron2",
+    "pyrep",
+    "rlbench",
+    "yarr",
+    "odise",
+    "diff-gaussian-rasterization",
+    "simple-knn",
+    "pyquaternion"
+]
+
+
+[tool.uv.extra-build-dependencies]
+# 给需要编译 C++/CUDA 扩展的包加上 ninja
+simple-knn = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+diff-gaussian-rasterization = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+pytorch3d = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+detectron2 = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+odise = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+
+mask2former = ["setuptools==68.2.2", "wheel", "ninja", "torch==2.0.0"]
+
+visdom = ["setuptools==68.2.2", "wheel"]
+
+pyrep = ["setuptools==68.2.2", "wheel", "cffi"]
+yarr = ["setuptools==68.2.2", "wheel", "torch==2.0.0"]
+
+[tool.uv.sources]
+# PyTorch 核心源
+torch = [
+  { index = "pytorch-cu117", marker = "platform_system == 'Linux' and platform_machine == 'x86_64'" }
+]
+torchvision = [
+  { index = "pytorch-cu117", marker = "platform_system == 'Linux' and platform_machine == 'x86_64'" }
+]
+torchaudio = [
+  { index = "pytorch-cu117", marker = "platform_system == 'Linux' and platform_machine == 'x86_64'" }
+]
+
+detectron2 = { git = "https://github.com/quantumxiaol/detectron2.git" }
+pytorch3d = { git = "https://github.com/quantumxiaol/pytorch3d.git"  }
+visdom = { git = "https://github.com/quantumxiaol/visdom.git"  }
+
+clip = { git = "https://github.com/openai/CLIP.git" }
+
+# 本地源码路径
+pyrep = { path = "third_party/PyRep" }
+rlbench = { path = "third_party/RLBench", editable = true }
+yarr = { path = "third_party/YARR" }
+odise = { path = "third_party/ODISE" }
+# detectron2 = { path = "third_party/detectron2"}
+# pytorch3d = { path = "third_party/pytorch3d" }
+# visdom = { path = "third_party/visdom" }
+
+diff-gaussian-rasterization = { path = "third_party/gaussian-splatting/submodules/diff-gaussian-rasterization" }
+simple-knn = { path = "third_party/gaussian-splatting/submodules/simple-knn" }
+
+[[tool.uv.index]]
+name = "pytorch-cu117"
+url = "https://download.pytorch.org/whl/cu117"
+explicit = true
+
+[tool.uv]
+override-dependencies = [
+    "cmake==3.28.4",
+    "hydra-core==1.1.0",
+    "torchmetrics>=0.7.0"
+]

@@ -84,7 +84,7 @@ setup(
         "omegaconf==2.1.1",
         "open-clip-torch==2.0.2",
         f"mask2former @ file://localhost/{os.getcwd()}/third_party/Mask2Former/",
-        "stable-diffusion-sdkit==2.1.3",
+        "stable-diffusion-sdkit>=2.1.3",
     ],
     extras_require={
         # dev dependencies. Install them by `pip install 'odise[dev]'`
