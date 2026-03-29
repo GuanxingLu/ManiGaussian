@@ -33,7 +33,8 @@ dependencies = [
     "odise",
     "diff-gaussian-rasterization",
     "simple-knn",
-    "pyquaternion"
+    "pyquaternion",
+    "setuptools<80.0.0",
 ]
 
 
